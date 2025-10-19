@@ -24,7 +24,7 @@ class Auth:
             "Content-Type": "application/x-www-form-urlencoded",
         }
 
-        data = {"grant_type": "client_credentials"}
+        data = {"grant_type": "client_credentials",}
         response = requests.post(auth_url, headers=headers, data=data)
 
         if response.status_code == 200:
