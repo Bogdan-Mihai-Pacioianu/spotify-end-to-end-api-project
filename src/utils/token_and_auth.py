@@ -1,8 +1,8 @@
 import requests
 import base64
 import json
-from databricks.sdk.runtime import dbutils, spark
-# creează instanța folosind sesiunea Spark
+from databricks.sdk.runtime import dbutils
+
 
 
 
