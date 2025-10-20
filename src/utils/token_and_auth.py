@@ -1,4 +1,4 @@
-import requests
+from requests import post, get
 import base64
 import json
 from databricks.sdk.runtime import dbutils
@@ -16,8 +16,10 @@ class Auth:
         # 1. Codificare Base64 pentru Client ID și Client Secret
         auth_string = f"{self.client_id}:{self.client_secret}"
         auth_bytes = auth_string.encode("utf-8")
+
+        # Base 64 encode string
         auth_base64 = str(base64.b64encode(auth_bytes), "utf-8")
-        auth_url = "https://accounts.spotify.com/api/token"
+        uri = "https://accounts.spotify.com/api/token"
 
         headers = {
             "Authorization": f"Basic {auth_base64}",
@@ -25,12 +27,14 @@ class Auth:
         }
 
         data = {"grant_type": "client_credentials",}
-        response = requests.post(auth_url, headers=headers, data=data)
-
+        response = post(uri, headers=headers, data=data)
+        json_result = json.loads(response.content)
+        token = json_result["access_token"]
+        
         if response.status_code == 200:
-            return response.json()["access_token"]
+            return token
         else:
             raise Exception("Nu s-a putut reîmprospăta token-ul.")
 
-    def get_authorization_header(self, token):
+    def get_auth_header(self, token):
         return {"Authorization": f"Bearer {token}"}

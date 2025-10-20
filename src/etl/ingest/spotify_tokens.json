@@ -1,8 +1,8 @@
 {
-  "access_token": "BQAAbZ-oZOazHajjpLFEY-3ut1WDgRB6mqrVZrXpv_XmZwwdHt35u84r8Csmg2jt8aOuaLBRkvYT5g6C1JVwyzJMAW2jJ29oe6E0Wfh0iDUP5-Eg1py1kPYyGxm9lNG4A7ZCgVA1KCRr5oMr3hnL4KMay3Aavi4iZ3hPJKZ4xGXCK08LZS2MgyQTmfM5oUeI1xdYWFrLaF0NtfIWTOz_FZR2nbJwZZwB3kAuKVn0LOJvfl7tJ6BGQX5CPHbZ",
+  "access_token": "BQD2FbOZWbsfJ7vYkAvipEORgb5S9M770RCYx3DHZvE6-gqt7mqrL7Z35tkv3dHXRHnO3IHjscOrVWQApPocdfP4JEse_azDJgDdX3muqT_r95QhRaLaIcEr5tJs5aAWjqYo-nwZS7-zqiBENqS1kPaV1sssYDQRhYGTyp_y_Qnr7iVOU0ooFlNWi7XHg2yA6Tgh4y2NZ0CmE384gS9nkkyazA4-LIlpkLsVUMq807PVxIKeKoC1qIxbqDf-",
   "token_type": "Bearer",
   "expires_in": 3600,
-  "refresh_token": "AQBbCFRBAfKmhn_3NMWjoNuv4Ya0_EVpk1qvdbdnPd6H16pLKK8vYna_-O43a-Hdst50LrXKvb-5APRTethOBZ831ntsvHiF59gik-X3Iewt4EJfeijd0Po1PtjHysWZX_Q",
+  "refresh_token": "AQDlFmPjgIMa4SvlX_29kMZjyVQ1Y0A6QCs05VbwFercWjBVnmIV2iCck39_Ol7xb-HMc5kGT7nTIEVf5dDr_13XLwBwOiyCBErydLuLhgDKEhEwRk05fNvgJeEM-iuqEvk",
   "scope": "user-read-playback-state user-read-currently-playing user-read-recently-played",
-  "expires_at": 1760909086
+  "expires_at": 1760949897
 }
