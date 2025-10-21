@@ -1,0 +1,19 @@
+# Proiect ETL Spotify în Databricks
+
+Acest proiect extrage date de pe API-ul Spotify și le salvează ca tabele Delta în Databricks.
+
+## Setup (O singură dată)
+
+1.  **Creare Secret Scope:**
+    * Veți avea nevoie de [Databricks CLI](http://googleusercontent.com/databricks/cli/0).
+    * Creați un "scope" pentru secretele Spotify:
+        `databricks secrets create-scope --scope spotify-scope`
+
+2.  **Adăugare Token:**
+    * Adăugați token-ul de acces în scope:
+        `databricks secrets put --scope spotify-scope --key spotify-token --string-value "YOUR_ACCESS_TOKEN_HERE"`
+
+3.  **Setup Cluster:**
+    * Atașați un cluster la acest repo.
+    * Instalați bibliotecile necesare:
+        `pip install -r requirements.txt`
