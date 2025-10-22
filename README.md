@@ -16,4 +16,4 @@ Acest proiect extrage date de pe API-ul Spotify și le salvează ca tabele Delta
 3.  **Setup Cluster:**
     * Atașați un cluster la acest repo.
     * Instalați bibliotecile necesare:
-        `pip install -r requirements.txt`
+    `pip install -r requirements.txt`
