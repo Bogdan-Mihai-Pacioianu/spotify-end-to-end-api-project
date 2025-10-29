@@ -1,0 +1,531 @@
+{
+  "datasets": [
+    {
+      "name": "7cab9aea",
+      "displayName": "Genre Trends Over Time",
+      "queryLines": [
+        "SELECT \r\n",
+        "    month,\r\n",
+        "    genre,\r\n",
+        "    total_plays,\r\n",
+        "    avg_popularity\r\n",
+        "FROM spotify_etl.gold.gold_genre_trends"
+      ]
+    },
+    {
+      "name": "32f7b617",
+      "displayName": "Top Artists by Listening Time",
+      "queryLines": [
+        "SELECT\r\n",
+        "    artist_name,\r\n",
+        "    total_minutes,\r\n",
+        "    total_plays,\r\n",
+        "    unique_tracks\r\n",
+        "FROM spotify_etl.gold.gold_top_artists\r\n",
+        "order BY total_minutes DESC\r\n",
+        "limit 100"
+      ]
+    },
+    {
+      "name": "964249fd",
+      "displayName": "Top Tracks by Play Count",
+      "queryLines": [
+        "SELECT \r\n",
+        "    track_name,\r\n",
+        "    artist_name,\r\n",
+        "    play_count,\r\n",
+        "    popularity\r\n",
+        "FROM spotify_etl.gold.gold_top_tracks\r\n",
+        "ORDER BY play_count DESC\r\n",
+        "LIMIT 100"
+      ]
+    },
+    {
+      "name": "71b4692a",
+      "displayName": "Listening Patterns by Hour and Weekday",
+      "queryLines": [
+        "SELECT \r\n",
+        "  weekday_name,\r\n",
+        "  CASE \r\n",
+        "    WHEN hour_of_day BETWEEN 6 AND 11 THEN 'Morning'\r\n",
+        "    WHEN hour_of_day BETWEEN 12 AND 17 THEN 'Afternoon'\r\n",
+        "    WHEN hour_of_day BETWEEN 18 AND 23 THEN 'Evening'\r\n",
+        "    ELSE 'Night'\r\n",
+        "  END AS time_period,\r\n",
+        "  SUM(total_minutes) AS total_minutes\r\n",
+        "FROM spotify_etl.gold.gold_listening_patterns\r\n",
+        "GROUP BY weekday_name, \r\n",
+        "  CASE \r\n",
+        "    WHEN hour_of_day BETWEEN 6 AND 11 THEN 'Morning'\r\n",
+        "    WHEN hour_of_day BETWEEN 12 AND 17 THEN 'Afternoon'\r\n",
+        "    WHEN hour_of_day BETWEEN 18 AND 23 THEN 'Evening'\r\n",
+        "    ELSE 'Night'\r\n",
+        "  END\r\n",
+        "ORDER BY weekday_name, time_period;"
+      ]
+    },
+    {
+      "name": "bff42b95",
+      "displayName": "User Summary KPI",
+      "queryLines": [
+        "SELECT \r\n",
+        "    total_tracks,\r\n",
+        "    unique_artists,\r\n",
+        "    total_minutes,\r\n",
+        "    favorite_artist,\r\n",
+        "    top_track\r\n",
+        "FROM spotify_etl.gold.gold_user_listening_summary"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "259d98e4",
+      "displayName": "Untitled page",
+      "layout": [
+        {
+          "widget": {
+            "name": "161b87a0",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "7cab9aea",
+                  "fields": [
+                    {
+                      "name": "genre",
+                      "expression": "`genre`"
+                    },
+                    {
+                      "name": "month",
+                      "expression": "`month`"
+                    },
+                    {
+                      "name": "total_plays",
+                      "expression": "`total_plays`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "month",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "total_plays",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "genre",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "frame": {
+                "showDescription": false,
+                "title": "Total plays per month for each genre",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 5,
+            "width": 3,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "c3b61440",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "32f7b617",
+                  "fields": [
+                    {
+                      "name": "total_minutes",
+                      "expression": "`total_minutes`"
+                    },
+                    {
+                      "name": "artist_name",
+                      "expression": "`artist_name`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "total_minutes",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "artist_name",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "x-reversed"
+                    }
+                  }
+                }
+              },
+              "frame": {
+                "title": "Total listening time per artist",
+                "showTitle": true,
+                "showDescription": false
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 5,
+            "width": 3,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "8d887f0d",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "964249fd",
+                  "fields": [
+                    {
+                      "name": "track_name",
+                      "expression": "`track_name`"
+                    },
+                    {
+                      "name": "play_count",
+                      "expression": "`play_count`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "track_name",
+                  "scale": {
+                    "type": "categorical"
+                  },
+                  "displayName": "Track Name"
+                },
+                "y": {
+                  "fieldName": "play_count",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Play Count"
+                },
+                "color": {
+                  "fieldName": "track_name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Top Tracks by Play Count",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 12,
+            "width": 4,
+            "height": 10
+          }
+        },
+        {
+          "widget": {
+            "name": "f1224603",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "71b4692a",
+                  "fields": [
+                    {
+                      "name": "sum(total_minutes)",
+                      "expression": "SUM(`total_minutes`)"
+                    },
+                    {
+                      "name": "weekday_name",
+                      "expression": "`weekday_name`"
+                    },
+                    {
+                      "name": "time_period",
+                      "expression": "`time_period`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "heatmap",
+              "encodings": {
+                "x": {
+                  "fieldName": "weekday_name",
+                  "scale": {
+                    "type": "categorical"
+                  },
+                  "displayName": "Week Day Name"
+                },
+                "y": {
+                  "fieldName": "time_period",
+                  "scale": {
+                    "type": "categorical"
+                  },
+                  "displayName": "Time Period"
+                },
+                "color": {
+                  "fieldName": "sum(total_minutes)",
+                  "scale": {
+                    "type": "quantitative",
+                    "colorRamp": {
+                      "mode": "scheme",
+                      "scheme": "blues"
+                    }
+                  },
+                  "displayName": "Total Minutes"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Listening Patterns by Hour and Weekday"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 12,
+            "width": 2,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "fbe5e07b",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "bff42b95",
+                  "fields": [
+                    {
+                      "name": "top_track",
+                      "expression": "`top_track`"
+                    },
+                    {
+                      "name": "favorite_artist",
+                      "expression": "`favorite_artist`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "favorite_artist"
+                },
+                "target": {
+                  "fieldName": "top_track"
+                }
+              },
+              "frame": {
+                "title": "Unique Artist",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 2,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "6727bb77",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "bff42b95",
+                  "fields": [
+                    {
+                      "name": "sum(total_tracks)",
+                      "expression": "SUM(`total_tracks`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_tracks)"
+                }
+              },
+              "frame": {
+                "title": "Total Tracks",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 2,
+            "width": 2,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "8be80cda",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "bff42b95",
+                  "fields": [
+                    {
+                      "name": "sum(total_minutes)",
+                      "expression": "SUM(`total_minutes`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_minutes)"
+                }
+              },
+              "frame": {
+                "title": "Total Minutes",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 2,
+            "width": 2,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "d33a8d12",
+            "multilineTextboxSpec": {
+              "lines": [
+                "# <span style=\"color: #11171C;\">Spotify Raport</span>"
+              ]
+            },
+            "specExtensions": {
+              "widgetBackgroundColor": {
+                "dark": "#03FF32"
+              },
+              "widgetBorderColor": {
+                "dark": "#000000"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    },
+    {
+      "name": "e9c5d5e8",
+      "displayName": "Global Filters",
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "canvasBackgroundColor": {
+        "light": "#F6FAFB",
+        "dark": "#1B1F23"
+      },
+      "widgetBackgroundColor": {
+        "light": "#FFFFFF",
+        "dark": "#2A2F35"
+      },
+      "widgetBorderColor": {
+        "light": "#D7E1E9",
+        "dark": "#3C444C"
+      },
+      "fontColor": {
+        "light": "#374151",
+        "dark": "#E4E9EE"
+      },
+      "selectionColor": {
+        "light": "#5FA8D3",
+        "dark": "#5FA8D3"
+      },
+      "visualizationColors": [
+        "#5FA8D3",
+        "#70BEE1",
+        "#89CCE7",
+        "#A1DAEC",
+        "#B3E6DC",
+        "#89C7A8",
+        "#6EAD80",
+        "#589F60",
+        "#478743",
+        "#356C2A"
+      ],
+      "widgetHeaderAlignment": "LEFT"
+    },
+    "genieSpace": {
+      "isEnabled": true
+    }
+  }
+}
