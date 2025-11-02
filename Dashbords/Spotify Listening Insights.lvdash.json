@@ -9,8 +9,12 @@
         "    genre,\r\n",
         "    total_plays,\r\n",
         "    avg_popularity\r\n",
-        "FROM spotify_etl.gold.gold_genre_trends"
-      ]
+        "\r\n",
+        "FROM spotify_etl.gold.gold_genre_trends\r\n",
+        "ORDER BY total_plays DESC\r\n"
+      ],
+      "catalog": "spotify_etl",
+      "schema": "gold"
     },
     {
       "name": "32f7b617",
@@ -22,8 +26,7 @@
         "    total_plays,\r\n",
         "    unique_tracks\r\n",
         "FROM spotify_etl.gold.gold_top_artists\r\n",
-        "order BY total_minutes DESC\r\n",
-        "limit 100"
+        "order BY total_minutes DESC\r\n"
       ]
     },
     {
@@ -36,8 +39,7 @@
         "    play_count,\r\n",
         "    popularity\r\n",
         "FROM spotify_etl.gold.gold_top_tracks\r\n",
-        "ORDER BY play_count DESC\r\n",
-        "LIMIT 100"
+        "ORDER BY play_count , popularity DESC\r\n"
       ]
     },
     {
@@ -123,7 +125,8 @@
                   "fieldName": "total_plays",
                   "scale": {
                     "type": "quantitative"
-                  }
+                  },
+                  "displayName": "Total Plays"
                 },
                 "color": {
                   "fieldName": "genre",
@@ -176,7 +179,8 @@
                   "fieldName": "total_minutes",
                   "scale": {
                     "type": "quantitative"
-                  }
+                  },
+                  "displayName": "Minutes"
                 },
                 "y": {
                   "fieldName": "artist_name",
@@ -185,7 +189,8 @@
                     "sort": {
                       "by": "x-reversed"
                     }
-                  }
+                  },
+                  "displayName": "Artist"
                 }
               },
               "frame": {
@@ -197,9 +202,9 @@
           },
           "position": {
             "x": 3,
-            "y": 5,
-            "width": 3,
-            "height": 7
+            "y": 2,
+            "width": 2,
+            "height": 13
           }
         },
         {
@@ -258,8 +263,8 @@
           "position": {
             "x": 0,
             "y": 12,
-            "width": 4,
-            "height": 10
+            "width": 3,
+            "height": 8
           }
         },
         {
@@ -325,10 +330,10 @@
             }
           },
           "position": {
-            "x": 4,
-            "y": 12,
+            "x": 3,
+            "y": 15,
             "width": 2,
-            "height": 7
+            "height": 6
           }
         },
         {
@@ -373,7 +378,7 @@
           "position": {
             "x": 0,
             "y": 2,
-            "width": 2,
+            "width": 1,
             "height": 3
           }
         },
@@ -410,9 +415,9 @@
             }
           },
           "position": {
-            "x": 4,
+            "x": 2,
             "y": 2,
-            "width": 2,
+            "width": 1,
             "height": 3
           }
         },
@@ -449,9 +454,9 @@
             }
           },
           "position": {
-            "x": 2,
+            "x": 1,
             "y": 2,
-            "width": 2,
+            "width": 1,
             "height": 3
           }
         },
@@ -489,6 +494,7 @@
     }
   ],
   "uiSettings": {
+    "locale": "en-US",
     "theme": {
       "canvasBackgroundColor": {
         "light": "#F6FAFB",
@@ -522,7 +528,7 @@
         "#478743",
         "#356C2A"
       ],
-      "widgetHeaderAlignment": "LEFT"
+      "widgetHeaderAlignment": "CENTER"
     },
     "genieSpace": {
       "isEnabled": true
